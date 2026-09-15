@@ -8,117 +8,55 @@ interface Task{
   title: string; //name of task
   completed: boolean; //done or not
 }
- //this is function is the entire app
+ //this is function is the entire app so do not delete
 function App() {
-  const [todo, setTodos] = useState<Task[]>([])
+  const [todos, settodos] = useState (["drink water"]);
   const [title, setTitle] = useState("")
 
-  function addTodo(title: string){
-    const newTodo: Task = {
-      id: crypto.randomUUID(),
-      title,
-      completed: false
-    }
-    setTodos([...todo, newTodo])
+
+
+  //add a new to do
+  function addTodo(){
+    //... Spread operator:Brings the item of the array (ex. drink water)
+    settodos(t => [...t, title])
+
+    setTitle("")
+
   }
 
 
+  function removetodo(){
+
+  }
+
   //what actually gets shown on the screen
   return (
-    <>
-      <section id="center">
+    
+    <>    
+     {/*//----HEADER---------------------------------------------------------*/}
+      <section>
         <div>
           <h1>To-Do App</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-      </section>
-      <input
-      type="text"
-      value={title}
-      onChange={(e) => setTitle(e.target.value)}
-      />
-
-      <button onClick={() => addTodo(title)}>Add Task</button>
-
-
-
-
-
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
         </div>
       </section>
 
-      <div className="ticks"></div>
+     {/*//----the button and placeholder to add a task---------------------------------------------------------*/}
+
+
+    {/*----Displaying the array onto the screen---------------------------------------------------------*/}
+      <h2>List of Tasks</h2>
+      <ul>
+        {todos.map((todo, index) => <li key = {index}>{todo}</li>)}
+      </ul>
+      <input type='text' value={title} placeholder='Add a Task'
+      onChange={(e)=> setTitle(e.target.value)} />
+      <button onClick={addTodo}>Add Task</button>
+
+
+
+
+
+
       <section id="spacer"></section>
     </>
   )
