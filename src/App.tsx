@@ -25,8 +25,8 @@ function App() {
   }
 
 
-  function removetodo(){
-
+  function removetodo(index: number){
+    settodos(todos.filter((element, i) => i !== index))
   }
 
   //what actually gets shown on the screen
@@ -40,20 +40,16 @@ function App() {
         </div>
       </section>
 
-     {/*//----the button and placeholder to add a task---------------------------------------------------------*/}
-
-
-    {/*----Displaying the array onto the screen---------------------------------------------------------*/}
+    {/*----Displaying the array and buttons onto the screen---------------------------------------------------------*/}
       <h2>List of Tasks</h2>
       <ul>
-        {todos.map((todo, index) => <li key = {index}>{todo}</li>)}
+        {todos.map((todo, index) => <li key = {index}>{todo}
+          <button onClick={() => removetodo(index)} > Remove</button>
+        </li>)}
       </ul>
       <input type='text' value={title} placeholder='Add a Task'
       onChange={(e)=> setTitle(e.target.value)} />
       <button onClick={addTodo}>Add Task</button>
-
-
-
 
 
 
