@@ -3,7 +3,7 @@ import './App.css'
 
 //tells typescript that this is the shape of a task.
 //allows for mistakes to be caught 
-interface Task{
+interface Todo{
   id: string; //index
   title: string; //name of task
   completed: boolean; //done or not
@@ -17,10 +17,15 @@ function App() {
 
   //add a new to do
   function addTodo(){
+        //check for empty input
+        if(title.trim()===""){
+          return;
+        }
     //... Spread operator:Brings the item of the array (ex. drink water)
     settodos(t => [...t, title])
 
     setTitle("")
+    
 
   }
 
