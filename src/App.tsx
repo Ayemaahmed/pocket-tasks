@@ -1,12 +1,29 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
 
+//tells typescript that this is the shape of a task.
+//allows for mistakes to be caught 
+interface Task{
+  id: string; //index
+  title: string; //name of task
+  completed: boolean; //done or not
+}
+ //this is function is the entire app
 function App() {
-  const [count, setCount] = useState(0)
+  const [todo, setTodos] = useState<Task[]>([])
+  const [title, setTitle] = useState("")
 
+  function addTodo(title: string){
+    const newTodo: Task = {
+      id: crypto.randomUUID(),
+      title,
+      completed: false
+    }
+    setTodos([...todo, newTodo])
+  }
+
+
+  //what actually gets shown on the screen
   return (
     <>
       <section id="center">
@@ -16,22 +33,19 @@ function App() {
             Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
           </p>
         </div>
-
-
-
-
-
-        <button
-          type="button"
-          className="add-button"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Add Task
-        </button>
-
-
-
       </section>
+      <input
+      type="text"
+      value={title}
+      onChange={(e) => setTitle(e.target.value)}
+      />
+
+      <button onClick={() => addTodo(title)}>Add Task</button>
+
+
+
+
+
 
       <div className="ticks"></div>
 
@@ -43,18 +57,6 @@ function App() {
           <h2>Documentation</h2>
           <p>Your questions, answered</p>
           <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
           </ul>
         </div>
         <div id="social">
