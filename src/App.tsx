@@ -75,8 +75,11 @@ function App() {
 
 
       <input type='text' value={title} placeholder='Add a Task'
-      onChange={(e)=> setTitle(e.target.value)} />
-      <button onClick={addTodo}>Add Task</button>
+      onChange={(e)=> setTitle(e.target.value)} 
+      onKeyDown={(e) =>{if(e.key ==="Enter") {addTodo();}
+      }}/>
+        <button onClick={addTodo}>Add Task</button>
+  
 
 
 
