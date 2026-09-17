@@ -10,7 +10,7 @@ interface Todo{
 }
  //this is function is the entire app so do not delete
 function App() {
-  const [todos, settodos] = useState (["drink water"]);
+  const [todos, settodos] = useState<Todo[]>([{id: crypto.randomUUID(), title:"",completed: false}]);
   const [title, setTitle] = useState("")
 
 
@@ -22,7 +22,12 @@ function App() {
           return;
         }
     //... Spread operator:Brings the item of the array (ex. drink water)
-    settodos(t => [...t, title])
+    const newTodo: Todo = {
+      id: crypto.randomUUID(),
+      title: title,
+      completed: false}
+
+    settodos([...todos, newTodo]);
 
     setTitle("")
     
@@ -32,6 +37,11 @@ function App() {
 
   function removetodo(index: number){
     settodos(todos.filter((element, i) => i !== index))
+  }
+
+  function strightthough(index:number){
+    settodos(todos.map((todo, i)=>
+      i===index ?{...todo,completed: !todo.completed}: todo));
   }
 
   //what actually gets shown on the screen
@@ -47,11 +57,23 @@ function App() {
 
     {/*----Displaying the array and buttons onto the screen---------------------------------------------------------*/}
       <h2>List of Tasks</h2>
+      {todos.length === 0? (
+          <p>You have nothing to do today? lucky you!</p>
+
+      ):(
       <ul>
-        {todos.map((todo, index) => <li key = {index}>{todo}
+        {todos.map((todo, index) => <li 
+        key = {index} style={{textDecoration: todo.completed?"line-through":"none"}}>
+          {todo.title}
+
           <button onClick={() => removetodo(index)} > Remove</button>
+          
+          <input type='checkbox' checked={todo.completed} onChange={()=>strightthough(index)}/>
         </li>)}
       </ul>
+      )}
+
+
       <input type='text' value={title} placeholder='Add a Task'
       onChange={(e)=> setTitle(e.target.value)} />
       <button onClick={addTodo}>Add Task</button>
