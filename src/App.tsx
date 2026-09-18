@@ -9,8 +9,9 @@ interface Todo{
   completed: boolean; //done or not
 }
  //this is function is the entire app so do not delete
+ //id: crypto.randomUUID(), title:"",completed: false}]
 function App() {
-  const [todos, settodos] = useState<Todo[]>([{id: crypto.randomUUID(), title:"",completed: false}]);
+  const [todos, settodos] = useState<Todo[]>([]);
   const [title, setTitle] = useState("")
 
 
